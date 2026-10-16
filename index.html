@@ -88,7 +88,8 @@ button:focus-visible { outline: 2px solid var(--hero); outline-offset: 2px; }
   var actual = 'hoy', sub = null;
   function leer(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }
   function vista() { try { return localStorage.getItem('app.vista') === 'griego' ? 'griego' : 'burdeos'; } catch (e) { return 'burdeos'; } }
-  function aplicarVista() { document.documentElement.setAttribute('data-vista', vista()); }
+  function tema() { var m = document.querySelector('meta[name=theme-color]'); if (m) m.setAttribute('content', document.documentElement.getAttribute('data-vista') === 'griego' ? '#0d3b72' : '#5a1a2b'); }
+  function aplicarVista() { document.documentElement.setAttribute('data-vista', vista()); tema(); }
   function valor(k) {
     var d = new Date(), anio = d.getFullYear(), mes = anio + '-' + String(d.getMonth() + 1).padStart(2, '0'), x;
     if (k === 'libros') { x = leer('libros.v1'); return x && x.libros ? x.libros.filter(function (l) { return l.anio === anio; }).length + ' este año' : '—'; }
@@ -168,7 +169,7 @@ button:focus-visible { outline: 2px solid var(--hero); outline-offset: 2px; }
   }
   Array.prototype.forEach.call(document.querySelectorAll('.nav-app button'), function (b) { b.addEventListener('click', function () { ir(b.getAttribute('data-t')); }); });
   document.getElementById('atras-b').addEventListener('click', function () { ir('cosas'); });
-  new MutationObserver(function () { marcarNav(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-vista'] });
+  new MutationObserver(function () { marcarNav(); tema(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-vista'] });
   ir('hoy');
 })();
 </script>
