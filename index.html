@@ -15,6 +15,21 @@
 <link rel="stylesheet" href="fonts.css">
 <style>[hidden]{display:none!important} html{color-scheme:light} img{max-width:100%}</style>
 <style>
+#splash{position:fixed;inset:0;z-index:1000;background:#0d3b72;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transition:opacity .45s ease;}
+#splash.fuera{opacity:0;pointer-events:none;}
+#splash .sp-sol{width:min(62vw,260px);height:auto;overflow:visible;}
+#splash .sp-giro{transform-box:view-box;transform-origin:50px 50px;animation:sp-giro 1.3s cubic-bezier(.2,.7,.2,1) both;}
+#splash .sp-r{fill:#c9a14a;transform-box:view-box;transform-origin:50px 50px;animation:sp-ray .5s cubic-bezier(.2,.9,.3,1.2) both;}
+#splash .sp-d{fill:#c9a14a;transform-box:view-box;transform-origin:50px 50px;animation:sp-pop .5s cubic-bezier(.2,.9,.3,1.2) both;}
+#splash .sp-h{fill:#0d3b72;transform-box:view-box;transform-origin:50px 50px;animation:sp-pop .5s .08s cubic-bezier(.2,.9,.3,1.2) both;}
+#splash .sp-c{fill:#c9a14a;transform-box:view-box;transform-origin:50px 50px;animation:sp-pop .5s .16s cubic-bezier(.2,.9,.3,1.2) both;}
+#splash .sp-n{font-family:'Cinzel',Georgia,serif;font-weight:700;font-size:26px;letter-spacing:.42em;margin-right:-.42em;color:#c9a14a;animation:sp-txt .7s .85s ease-out both;}
+@keyframes sp-ray{from{transform:scale(.2);opacity:0}to{transform:none;opacity:1}}
+@keyframes sp-pop{from{transform:scale(0)}to{transform:none}}
+@keyframes sp-giro{from{transform:rotate(-40deg)}to{transform:none}}
+@keyframes sp-txt{from{opacity:0;letter-spacing:.7em;transform:translateY(6px)}to{opacity:1;letter-spacing:.42em;transform:none}}
+@media (prefers-reduced-motion:reduce){#splash{display:none}}
+</style><style>
 :root {
   --bg: #f6f2f1; --card: #ffffff; --ink: #2a1218; --muted: #6b5459;
   --hero: #5a1a2b; --soft: #e3c3cb; --track: #7a2f42; --accent: #e0c9a6; --line: #e6dcdc;
@@ -50,7 +65,7 @@ body.con-atras { padding-top: 56px !important; }
 .atras button { min-height: 44px; padding: 0 12px; border: 0; background: transparent; color: var(--hero); font: 600 16px 'Barlow', sans-serif; cursor: pointer; }
 </style>
 </head>
-<body>
+<body><div id="splash" aria-hidden="true"><svg class="sp-sol" viewBox="0 0 100 100" aria-hidden="true"><g class="sp-giro"><path class="sp-r" style="animation-delay:0.25s" d="M48.73 36.06L50.00 13.00L51.27 36.06Z"/><path class="sp-r" style="animation-delay:0.29s" d="M51.27 63.94L50.00 87.00L48.73 63.94Z"/><path class="sp-r" style="animation-delay:0.32s" d="M63.94 48.73L87.00 50.00L63.94 51.27Z"/><path class="sp-r" style="animation-delay:0.35s" d="M36.06 51.27L13.00 50.00L36.06 48.73Z"/><path class="sp-r" style="animation-delay:0.39s" d="M58.96 39.24L76.16 23.84L60.76 41.04Z"/><path class="sp-r" style="animation-delay:0.43s" d="M41.04 60.76L23.84 76.16L39.24 58.96Z"/><path class="sp-r" style="animation-delay:0.46s" d="M60.76 58.96L76.16 76.16L58.96 60.76Z"/><path class="sp-r" style="animation-delay:0.49s" d="M39.24 41.04L23.84 23.84L41.04 39.24Z"/><path class="sp-r" style="animation-delay:0.53s" d="M54.16 36.63L61.10 23.21L56.51 37.60Z"/><path class="sp-r" style="animation-delay:0.57s" d="M45.84 63.37L38.90 76.79L43.49 62.40Z"/><path class="sp-r" style="animation-delay:0.60s" d="M63.37 54.16L76.79 61.10L62.40 56.51Z"/><path class="sp-r" style="animation-delay:0.64s" d="M36.63 45.84L23.21 38.90L37.60 43.49Z"/><path class="sp-r" style="animation-delay:0.67s" d="M62.40 43.49L76.79 38.90L63.37 45.84Z"/><path class="sp-r" style="animation-delay:0.71s" d="M37.60 56.51L23.21 61.10L36.63 54.16Z"/><path class="sp-r" style="animation-delay:0.74s" d="M56.51 62.40L61.10 76.79L54.16 63.37Z"/><path class="sp-r" style="animation-delay:0.78s" d="M43.49 37.60L38.90 23.21L45.84 36.63Z"/></g><circle class="sp-d" cx="50" cy="50" r="15"/><circle class="sp-h" cx="50" cy="50" r="10.5"/><circle class="sp-c" cx="50" cy="50" r="4.2"/></svg><div class="sp-n">PHAROS</div></div>
 <div id="pg"></div>
 <div class="atras" id="atras" hidden><button type="button" id="atras-b">‹ Mis cosas</button></div>
 <nav class="nav-app" aria-label="Principal">
@@ -173,6 +188,7 @@ button:focus-visible { outline: 2px solid var(--hero); outline-offset: 2px; }
   ir('hoy');
 })();
 </script>
+<script>(function(){var s=document.getElementById('splash');if(!s)return;var q=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;function fin(){if(!s)return;s.classList.add('fuera');var x=s;s=null;setTimeout(function(){x.remove();},500);}if(q){s.remove();return;}s.addEventListener('click',fin);setTimeout(fin,2100);})();</script>
 <script>if ('serviceWorker' in navigator) { window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); }</script>
 </body>
 </html>
